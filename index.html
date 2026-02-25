@@ -118,6 +118,149 @@
       z-index: 10;
     }
 
+    /* PROFILE BUTTON */
+    .profile-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
+      border: none;
+      color: #fff;
+      font-size: 1.4em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
+      transition: all 0.2s;
+      display: none;
+    }
+
+    .profile-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(127, 90, 240, 0.4);
+    }
+
+    /* PROFILE MODAL */
+    .profile-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+
+    .profile-modal.show {
+      display: flex;
+    }
+
+    .profile-content {
+      background: rgba(20, 25, 45, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(127, 90, 240, 0.3);
+      border: 1px solid rgba(127, 90, 240, 0.2);
+    }
+
+    .profile-title {
+      font-size: 1.8em;
+      font-weight: 800;
+      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .profile-field {
+      margin-bottom: 20px;
+    }
+
+    .profile-field label {
+      display: block;
+      font-size: 0.9em;
+      font-weight: 500;
+      color: #a0b0c0;
+      margin-bottom: 8px;
+    }
+
+    .profile-field input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid rgba(127, 90, 240, 0.3);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95em;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    .profile-field input:focus {
+      border-color: #7f5af0;
+      box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .profile-msg {
+      margin-bottom: 16px;
+      font-size: 0.9em;
+      color: #ff6b6b;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    .profile-btns {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .profile-save-btn, .profile-close-btn {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .profile-save-btn {
+      background: linear-gradient(120deg, #7f5af0 0%, #36cce4 100%);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
+    }
+
+    .profile-save-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(127, 90, 240, 0.4);
+    }
+
+    .profile-close-btn {
+      background: rgba(255, 255, 255, 0.05);
+      color: #a0b0c0;
+      border: 1.5px solid rgba(127, 90, 240, 0.3);
+    }
+
+    .profile-close-btn:hover {
+      background: rgba(127, 90, 240, 0.1);
+      border-color: #7f5af0;
+      color: #7f5af0;
+    }
+
     /* LOGIN PAGE */
     #login-page {
       background: transparent;
@@ -565,6 +708,32 @@
     <div class="nebula cyan"></div>
   </div>
 
+  <!-- PROFILE BUTTON -->
+  <button class="profile-btn" id="profile-btn" onclick="openProfileModal()">👤</button>
+
+  <!-- PROFILE MODAL -->
+  <div class="profile-modal" id="profile-modal">
+    <div class="profile-content">
+      <div class="profile-title">Profile Settings</div>
+      <div class="profile-msg" id="profile-msg"></div>
+      
+      <div class="profile-field">
+        <label>Username</label>
+        <input type="text" id="profile-username" placeholder="Your username">
+      </div>
+
+      <div class="profile-field">
+        <label>Password</label>
+        <input type="password" id="profile-password" placeholder="New password">
+      </div>
+
+      <div class="profile-btns">
+        <button class="profile-save-btn" onclick="saveProfileChanges()">Save</button>
+        <button class="profile-close-btn" onclick="closeProfileModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- LOGIN PAGE -->
   <div class="page" id="login-page">
     <div class="login-hero">
@@ -606,6 +775,13 @@
           <div class="form-field">
             <label for="username">Username / Display Name</label>
             <input id="username" type="text" placeholder="Your awesome username" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-field">
+            <label for="create-password">Password</label>
+            <input id="create-password" type="password" placeholder="Choose a password" autocomplete="off">
           </div>
         </div>
 
@@ -662,6 +838,40 @@
     // Password constant
     const PASSWORD = "052210";
 
+    // Cookie functions
+    function setCookie(name, value, days = 7) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + encodeURIComponent(JSON.stringify(value)) + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        if (cookie.indexOf(nameEQ) === 0) {
+          return JSON.parse(decodeURIComponent(cookie.substring(nameEQ.length)));
+        }
+      }
+      return null;
+    }
+
+    function deleteCookie(name) {
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+    }
+
+    // Check for existing login cookie on page load
+    function checkLoginCookie() {
+      const userCookie = getCookie('ubg_user');
+      if (userCookie && userCookie.username && userCookie.password) {
+        document.getElementById('welcome-display').innerText = `Welcome, ${userCookie.username}! 🚀`;
+        showPage('home-page');
+        document.getElementById('profile-btn').style.display = 'block';
+      }
+    }
+
     // Generate stars dynamically
     function generateStars() {
       const container = document.querySelector('.space-stars');
@@ -680,6 +890,7 @@
 
     // Initialize stars on page load
     generateStars();
+    checkLoginCookie();
 
     // Navigate between pages
     function showPage(id) {
@@ -706,9 +917,10 @@
       const fname = document.getElementById('fname').value.trim();
       const lname = document.getElementById('lname').value.trim();
       const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('create-password').value.trim();
       const msg = document.getElementById('account-msg');
 
-      if (!fname || !lname || !username) {
+      if (!fname || !lname || !username || !password) {
         msg.innerText = '❌ Please fill in all fields';
         return;
       }
@@ -718,27 +930,92 @@
         return;
       }
 
-      // Store user info for display
-      localStorage.setItem('userInfo', JSON.stringify({
+      if (password.length < 4) {
+        msg.innerText = '❌ Password must be at least 4 characters';
+        return;
+      }
+
+      // Store user info in cookie
+      const userData = {
         firstName: fname,
         lastName: lname,
-        username: username
-      }));
+        username: username,
+        password: password
+      };
+      setCookie('ubg_user', userData);
 
       // Clear form
       document.getElementById('fname').value = '';
       document.getElementById('lname').value = '';
       document.getElementById('username').value = '';
+      document.getElementById('create-password').value = '';
       msg.innerText = '';
 
       // Show home page with welcome message
       document.getElementById('welcome-display').innerText = `Welcome, ${username}! 🚀`;
+      document.getElementById('profile-btn').style.display = 'block';
       showPage('home-page');
+    }
+
+    // Open profile modal
+    function openProfileModal() {
+      const userCookie = getCookie('ubg_user');
+      if (userCookie) {
+        document.getElementById('profile-username').value = userCookie.username;
+        document.getElementById('profile-password').value = '';
+        document.getElementById('profile-msg').innerText = '';
+        document.getElementById('profile-modal').classList.add('show');
+      }
+    }
+
+    // Close profile modal
+    function closeProfileModal() {
+      document.getElementById('profile-modal').classList.remove('show');
+      document.getElementById('profile-msg').innerText = '';
+    }
+
+    // Save profile changes
+    function saveProfileChanges() {
+      const newUsername = document.getElementById('profile-username').value.trim();
+      const newPassword = document.getElementById('profile-password').value.trim();
+      const msg = document.getElementById('profile-msg');
+      const userCookie = getCookie('ubg_user');
+
+      if (!newUsername) {
+        msg.innerText = '❌ Username cannot be empty';
+        return;
+      }
+
+      if (newUsername.length < 3) {
+        msg.innerText = '❌ Username must be at least 3 characters';
+        return;
+      }
+
+      if (newPassword && newPassword.length < 4) {
+        msg.innerText = '❌ Password must be at least 4 characters';
+        return;
+      }
+
+      // Update user data
+      userCookie.username = newUsername;
+      if (newPassword) {
+        userCookie.password = newPassword;
+      }
+
+      setCookie('ubg_user', userCookie);
+      document.getElementById('welcome-display').innerText = `Welcome, ${newUsername}! 🚀`;
+      msg.innerText = '✅ Changes saved!';
+
+      setTimeout(() => {
+        closeProfileModal();
+      }, 1500);
     }
 
     // Logout
     function logout() {
+      deleteCookie('ubg_user');
       document.getElementById('welcome-display').innerText = 'What would you like to do?';
+      document.getElementById('profile-btn').style.display = 'none';
       showPage('login-page');
     }
 
@@ -779,8 +1056,16 @@
     document.addEventListener('keypress', function(e) {
       if (e.key === 'Enter' && (document.getElementById('fname') === document.activeElement || 
           document.getElementById('lname') === document.activeElement || 
-          document.getElementById('username') === document.activeElement)) {
+          document.getElementById('username') === document.activeElement ||
+          document.getElementById('create-password') === document.activeElement)) {
         createAccount();
+      }
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('profile-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeProfileModal();
       }
     });
   </script>
